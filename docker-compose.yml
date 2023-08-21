@@ -1,0 +1,32 @@
+# docker-compose.yml
+version: '3.7'
+
+services:
+  api:
+    container_name: account_api
+    # build:
+    # build from Dockerfile
+      # context: .
+      # dockerfile: Dockerfile
+    image: ushio0107/account_management_api
+    ports:
+     - "8080:8080"
+    networks:
+     - account_management_api
+  mongodb:
+    image: mongo:4.4
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${DB_USER}
+      - MONGO_INITDB_ROOT_PASSWORD=${DB_PASSWORD}
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data:/data/db
+    container_name: ${DB_HOST}
+    networks:
+      - account_management_api
+
+networks:
+  account_management_api:
+    driver: bridge

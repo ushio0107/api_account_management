@@ -1,0 +1,114 @@
+definitions:
+  models.AccountRequest:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    required:
+    - password
+    - username
+    type: object
+  models.ResponseType.BadRequestResponse:
+    properties:
+      reason:
+        example: failed reason
+        type: string
+      success:
+        example: false
+        type: boolean
+    type: object
+  models.ResponseType.Response:
+    properties:
+      reason:
+        example: ""
+        type: string
+      success:
+        example: true
+        type: boolean
+    type: object
+info:
+  contact:
+    email: leungyantung0107@gmail.com
+    name: Leung Yan Tung
+    url: https://github.com/ushio0107
+  description: This is a REST API which can create an account and verify an account.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: account_management_api
+  version: "1.0"
+paths:
+  /v1/login:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        Verifies the provided account credentials.
+        If the password verification fails five times, the user is required to wait for one minute before attempting again.
+      parameters:
+      - description: Account credentials
+        in: body
+        name: account
+        required: true
+        schema:
+          $ref: '#/definitions/models.AccountRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ResponseType.Response'
+        "401":
+          description: Incorrect username or password
+          schema:
+            $ref: '#/definitions/models.ResponseType.BadRequestResponse'
+        "429":
+          description: 'Password attempts exceed '
+          schema:
+            $ref: '#/definitions/models.ResponseType.BadRequestResponse'
+      summary: Verify an account
+      tags:
+      - accounts
+  /v1/signup:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        Create an account by the desired username and password.
+        Enter the username and password,
+
+        The username must meet the following criteria:
+        - Minimum length of 3 characters and a maximum length of 32 characters.
+
+        The password must meet the following criteria:
+        - Minimum length of 8 characters and maximum length of 32 characters.
+        - Must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number.
+      parameters:
+      - description: Account credentials
+        in: body
+        name: account
+        required: true
+        schema:
+          $ref: '#/definitions/models.AccountRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ResponseType.Response'
+        "400":
+          description: Invalid username or password
+          schema:
+            $ref: '#/definitions/models.ResponseType.BadRequestResponse'
+        "409":
+          description: Account already exists
+          schema:
+            $ref: '#/definitions/models.ResponseType.BadRequestResponse'
+      summary: Create an account
+      tags:
+      - accounts
+swagger: "2.0"
