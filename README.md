@@ -93,7 +93,8 @@ Both of two options are provided in `./start.sh`
 ./start.sh
 > Choose deployment method:
 > 1. Pull Docker image from Docker Hub and run
-> 2. Clone repo and run us
+> 2. Clone repo and run using Docker Compose
+> Enter your choice (1/2):
 ```
 
 ### Option2. Pull the Docker Image from Docker Hub and Deploy:
