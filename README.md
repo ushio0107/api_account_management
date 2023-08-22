@@ -82,16 +82,39 @@ This API allows you to verify if a given username and password combination is va
 }
 ```
 
-## Pull the Docker Image from Docker Hub:
-[Docker Hub Repository](https://hub.docker.com/r/ushio0107/account_management_api)
+## Getting Started
+To use the Account Management APIs, there are three options for you to deploy them. Follow these steps:
+
+**Install *Docker* before deployment.**
+
+### Option1. Just run the `./start.sh`
+Both of two options are provided in `./start.sh`
 ```bash
-docker pull ushio0107/account_management_api
+./start.sh
+> Choose deployment method:
+> 1. Pull Docker image from Docker Hub and run
+> 2. Clone repo and run us
 ```
 
-## Getting Started
-To use the Account Management APIs, follow these steps:
-### Deploy APIs
-Install *Docker* before deployment.
+### Option2. Pull the Docker Image from Docker Hub and Deploy:
+[Docker Hub Repository](https://hub.docker.com/r/ushio0107/account_management_api)
+```bash
+docker network create <YOUR_NETWORK>
+# Pull Docker image
+docker pull ushio0107/account_management_api
+docker pull mongo:4.4
+# Run Docker
+docker run --name mongo \
+  --network <YOUR_NETWORK>
+	-e MONGO_INITDB_ROOT_USERNAME=<DB_USERNAME> \
+	-e MONGO_INITDB_ROOT_PASSWORD=<DB_PASSWORD> \
+	-v ./data:/data/db \
+	-p 27017:27017 \
+	-d mongo:4.4 
+docker run --network <YOUR_NETWORK> -e <YourEnvironmentVariable> ushio0107/account_management_api
+```
+
+### Option3. Clone the Repo
 ```bash
 git clone git@github.com:ushio0107/api_account_management.git
 cd api_account_management
@@ -117,6 +140,12 @@ The APIs are documented by Swagger, starts the container of the APIs and accesse
 Click the button `Try it out`, then input the parameter.
 ![login](./demo/api_login.png)
 ![sigup](./demo/api_signup.png)
+
+#### Demo
+- Sign up
+![signup_demo](./demo/signup_demo.png)
+- Log in
+![login_demo](./demo/login_demo.png)
 
 ### API Documentation
 For detailed information on how to use the APIs, including sample request and response, please refer to the [link](http://localhost:8080/swagger/index.html).
