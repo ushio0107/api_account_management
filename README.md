@@ -88,6 +88,17 @@ To use the Account Management APIs, there are three options for you to deploy th
 
 **Install *Docker* before deployment.**
 
+### One-click deployment
+```bash
+wget https://github.com/ushio0107/api_account_management/releases/download/v1.0/release_v1.0.tar.gz
+./start.sh
+Choose deployment method:
+1. Pull Docker image from Docker Hub and run
+2. Clone repo and run using Docker Compose
+3. Run docker-compose up to deploy
+Enter your choice (1/3): 
+```
+
 ### Option1. Just run the `./start.sh`
 Both of two options are provided in `./start.sh`
 ```bash
