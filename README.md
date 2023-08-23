@@ -4,6 +4,7 @@ This README provides an overview of the project, instructions for running the co
 
 ## Directory Structure
 ```bash
+.
 ├── Dockerfile
 ├── README.md
 ├── api
