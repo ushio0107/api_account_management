@@ -1,4 +1,4 @@
-module user_api
+module user_api_man
 
 go 1.21.0
 

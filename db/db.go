@@ -13,7 +13,7 @@ import (
 
 func NewDB() (*mongo.Collection, error) {
 	uri := fmt.Sprintf("mongodb://%v:%v@%v:%v", os.Getenv("DB_USER"), os.Getenv("DB_PASSWORD"), os.Getenv("DB_HOST"), os.Getenv("DB_PORT"))
-	log.Print("Connecting to DB: ", uri)
+	log.Println("Connecting to DB: ", uri)
 
 	clientOptions := options.Client().ApplyURI(uri)
 	client, err := mongo.Connect(context.Background(), clientOptions)
@@ -24,7 +24,7 @@ func NewDB() (*mongo.Collection, error) {
 	if err := client.Ping(context.Background(), nil); err != nil {
 		return nil, err
 	}
-	log.Print("Connect to DB")
+	log.Println("Connected to DB")
 
 	collection := client.Database("Management").Collection("account")
 
